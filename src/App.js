@@ -11,6 +11,8 @@ import {
   Image,
   ImageBackground,
 } from "react-native";
+import { Header } from "react-native/Libraries/NewAppScreen";
+import MashButton from "./MashButton";
 
 const App = () => {
   const [name, SetName] = useState("");
@@ -31,6 +33,7 @@ const App = () => {
       }}
       style={styles.body}
     >
+      <Header />
       <Modal
         visible={showWarning}
         onRequestClose={() => SetshowWarning(false)}
@@ -64,30 +67,30 @@ const App = () => {
         placeholder="e.g. John"
         onChangeText={(value) => SetName(value)}
       />
-      <Pressable
-        onPress={onPressHandler}
-        hitSlop={{ top: 10, bottom: 10, right: 10, left: 10 }}
-        android_ripple={{ color: "#00f" }}
-        style={({ pressed }) => [
-          { backgroundColor: pressed ? "#dddddd" : "#00ff00" },
-          styles.button,
-        ]}
-      >
-        <Text style={styles.text}>{submitted ? "Clear" : "Submit"}</Text>
-      </Pressable>
+      <MashButton
+        onPressFunction={onPressHandler}
+        title={submitted ? "Clear" : "Submit"}
+        color={"#00ff00"}
+      />
+      <MashButton
+        onPressFunction={() => {}}
+        title={"Test"}
+        color={"#ff00ff"}
+        style={{ margin: 10 }}
+      />
       {submitted ? (
         <View style={styles.body}>
           <Text style={styles.text}>You are registered as {name}</Text>
           <Image
             style={styles.image}
-            source={require("./assets/done.png")}
+            source={require("../assets/done.png")}
             resizeMode="stretch"
           />
         </View>
       ) : (
         <Image
           style={styles.image}
-          source={require("./assets/error.png")}
+          source={require("../assets/error.png")}
           resizeMode="stretch"
         />
       )}
@@ -98,7 +101,6 @@ const App = () => {
 const styles = StyleSheet.create({
   body: {
     flex: 1,
-    backgroundColor: "#ffffff",
     alignItems: "center",
   },
   text: {
