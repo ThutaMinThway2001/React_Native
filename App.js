@@ -8,6 +8,8 @@ import {
   Alert,
   ToastAndroid,
   Modal,
+  Image,
+  ImageBackground,
 } from "react-native";
 
 const App = () => {
@@ -23,7 +25,12 @@ const App = () => {
   };
 
   return (
-    <View style={styles.body}>
+    <ImageBackground
+      source={{
+        uri: "https://cdn.pixabay.com/photo/2022/02/16/14/47/bird-7016926_960_720.jpg",
+      }}
+      style={styles.body}
+    >
       <Modal
         visible={showWarning}
         onRequestClose={() => SetshowWarning(false)}
@@ -69,9 +76,22 @@ const App = () => {
         <Text style={styles.text}>{submitted ? "Clear" : "Submit"}</Text>
       </Pressable>
       {submitted ? (
-        <Text style={styles.text}>You are registered as {name}</Text>
-      ) : null}
-    </View>
+        <View style={styles.body}>
+          <Text style={styles.text}>You are registered as {name}</Text>
+          <Image
+            style={styles.image}
+            source={require("./assets/done.png")}
+            resizeMode="stretch"
+          />
+        </View>
+      ) : (
+        <Image
+          style={styles.image}
+          source={require("./assets/error.png")}
+          resizeMode="stretch"
+        />
+      )}
+    </ImageBackground>
   );
 };
 
@@ -132,6 +152,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#00ffff",
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
+  },
+  image: {
+    width: 100,
+    height: 100,
+    margin: 10,
   },
 });
 
